@@ -45,10 +45,13 @@ function convertToReadings(raw) {
     .filter(r => r.length > 0)
     .map((row) => {
 
+
+
       let r1 = row
-        .slice(0, row.length - 1)
         .split(',')
         .map(Number);
+
+      let loc = r1[r1.length - 1];
 
       let readings = r1
         .slice(0, r1.length - 1)
@@ -56,8 +59,10 @@ function convertToReadings(raw) {
           if (n !== 0) return n;
           return Math.floor(r1.reduce((a, b) => { return a + b }, 0) / (r1.length - 2));
         });
+
+
       return {
-        location: Number(row[row.length - 1]),
+        location: loc,
         readings: readings
       };
     });
